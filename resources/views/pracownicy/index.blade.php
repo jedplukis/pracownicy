@@ -25,9 +25,16 @@
         Dodaj pracownika +
     </button>
 
+    <div id="noRecordError" class="alert alert-danger" style="display: none;">
+        No record found.
+    </div>
+
+
+
     <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/createOrUpdate.js') }}"></script>
+
 {{--    //<script type="text/javascript" src="{{ asset('js/update.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/createOrUpdate.js') }}"></script>
 
 @endsection

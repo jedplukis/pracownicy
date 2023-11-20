@@ -31,8 +31,8 @@ class WorkerCreateRequest extends FormRequest
             'nazwisko' => ['required'],
             'firma' => ['required', Rule::in(Firmy::getAllValues())],
             'dieta' => ['required', Rule::in(Dieta::getAllValues())],
-            'telefon_1' => ['numeric'],
-            'telefon_2' => ['nullable', 'numeric'],
+            'telefon_1' => ['string', 'required'],
+            'telefon_2' => ['string', 'nullable'],
         ];
     }
 }

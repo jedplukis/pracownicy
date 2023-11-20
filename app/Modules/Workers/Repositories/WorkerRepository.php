@@ -4,7 +4,6 @@ namespace App\Modules\Workers\Repositories;
 
 use App\Modules\Workers\Models\Worker;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\RecordsNotFoundException;
 use Symfony\Component\CssSelector\Exception\InternalErrorException;
 
 class WorkerRepository
@@ -33,20 +32,19 @@ class WorkerRepository
     /**
      * @param int $workerId
      * @param array $validated
-     * @return bool
+     * @return Worker
      */
-    public function update(int $workerId, array $validated): bool
+    public function update(int $workerId, array $validated): Worker
     {
-        $this->worker->id = $workerId;
+        $worker = $this->findOrFail($workerId);
 
-        $this->worker->update($validated);
+        $worker->update($validated);
 
-        return $this->worker->id;
+        return $this->findOrFail($workerId);
     }
 
     /**
      * @param int $workerId
-     * @param array $validated
      * @return bool
      */
     public function delete(int $workerId): bool

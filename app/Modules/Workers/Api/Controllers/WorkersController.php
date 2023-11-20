@@ -52,8 +52,7 @@ class WorkersController extends Controller implements WorkersControllerInterface
 
     public function update(WorkerUpdateRequest $workerUpdateRequest, int $workerId)
     {
-        dd($workerUpdateRequest);
-        return ['message' => $this->workerRepository->update($workerId, $workerUpdateRequest->validated())];
+        return ['record' => $this->workerRepository->update($workerId, $workerUpdateRequest->validated())];
     }
 
     public function destroy(int $workerId)

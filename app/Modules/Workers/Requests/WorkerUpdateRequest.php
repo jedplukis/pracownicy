@@ -7,7 +7,6 @@ use App\Enums\Firmy;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 
 class WorkerUpdateRequest extends FormRequest
 {
@@ -32,8 +31,8 @@ class WorkerUpdateRequest extends FormRequest
             'nazwisko' => ['string'],
             'firma' => [Rule::in(Firmy::getAllValues())],
             'dieta' => [Rule::in(Dieta::getAllValues())],
-            'telefon_1' => ['numeric'],
-            'telefon_2' => ['nullable', 'numeric'],
+            'telefon_1' => ['string'],
+            'telefon_2' => ['nullable', 'string'],
         ];
     }
 }
