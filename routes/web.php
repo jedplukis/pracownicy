@@ -15,5 +15,5 @@ use App\Modules\Workers\Api\Controllers\WorkersController;
 */
 
 Route::resource('/pracownicy', WorkersController::class, [
-    'except' => ['store']
+
 ]);

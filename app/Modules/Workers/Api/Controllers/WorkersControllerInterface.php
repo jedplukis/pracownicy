@@ -2,19 +2,19 @@
 
 namespace App\Modules\Workers\Api\Controllers;
 
-use Illuminate\Http\Request;
+use App\DataTables\WorkersDataTable;
+use App\Modules\Workers\Requests\WorkerCreateRequest;
+use App\Modules\Workers\Requests\WorkerUpdateRequest;
 
 interface WorkersControllerInterface
 {
-    public function index(Request $request);
+    public function index(WorkersDataTable $dataTable);
 
-    public function create();
+    public function store(WorkerCreateRequest $workerCreateRequest);
 
-    public function show();
+    public function show(int $workerId);
 
-    public function edit();
+    public function update(WorkerUpdateRequest $workerUpdateRequest, int $workerId);
 
-    public function update();
-
-    public function destroy();
+    public function destroy(int $workerId);
 }
