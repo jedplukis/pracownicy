@@ -1,0 +1,50 @@
+#createForm label {
+    margin-bottom: 5px;
+}
+
+#createForm input,
+#createForm select {
+    margin-bottom: 10px;
+}
+
+#createForm label {
+    font-weight: bold;
+    color: #333;
+}
+
+#createModal .modal-header {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#createModal .modal-content {
+    border-radius: 10px;
+}
+
+#createModal .modal-footer button {
+    margin-right: 10px;
+}
+
+#createForm label {
+    margin-bottom: 5px;
+    display: block;
+}
+
+#createForm input,
+#createForm select {
+    margin-bottom: 10px;
+    display: block;
+}
+
+#workers-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#workers-table th, #workers-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
