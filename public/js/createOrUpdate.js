@@ -1,9 +1,10 @@
+// Create and update click events
 
 let isUpdating = false;
 let createForm = $('#createForm');
 
 $(document).ready(function () {
-    // Create button click event using jQuery
+    // Create button click event
     $('#openCreateForm').click(function () {
         isUpdating = false;
         resetForm();
@@ -16,22 +17,23 @@ $(document).on('click', '.edit-btn', function() {
     isUpdating = true;
     $('.error-message').remove();
 
-    // Fetch worker data using Ajax
+    // Fetch worker data
     $.ajax({
         url: '/pracownicy/' + $(this).data('id'),
         method: 'GET',
         success: function(response) {
 
+            // Populate modal fields with clicked record
             populateForm(response.record);
-            // Populate modal fields with worker data for update
 
-            // // Show the create/update modal
+            // Show the create/update modal
             $('#createModal').modal('show');
         },
         error: handleEditError
     });
 });
 
+// Submit form - either edit or create
 createForm.submit(function (e) {
     e.preventDefault();
     $.ajax({
@@ -64,19 +66,19 @@ function handleSuccess() {
     // Clear the form fields
     resetForm();
 
-    // After successful submission, close the modal
+    // Close the modal
     $('#createModal').modal('hide');
 
     // Show a success modal
     $('#successModal').modal('show');
 
-    // Add new record to DataTable
+    // Reload datatable for new records
     $('#workers-table').DataTable().ajax.reload();
 }
 
 function handleAjaxError(error) {
     // Handle errors
-    if (error.status === 422) {
+    if (error.status) {
         // Clear existing error messages
         $('.error-message').remove();
 

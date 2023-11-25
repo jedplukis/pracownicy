@@ -43,7 +43,6 @@ class WorkersDataTable extends DataTable
                     ->setTableId('workers-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([

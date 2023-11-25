@@ -3,18 +3,44 @@
 namespace App\Modules\Workers\Api\Controllers;
 
 use App\DataTables\WorkersDataTable;
+use App\Modules\Workers\Exceptions\NotFoundException;
 use App\Modules\Workers\Requests\WorkerCreateRequest;
 use App\Modules\Workers\Requests\WorkerUpdateRequest;
+use Illuminate\Http\JsonResponse;
 
 interface WorkersControllerInterface
 {
-    public function index(WorkersDataTable $dataTable);
+    /**
+     * @param WorkersDataTable $dataTable
+     * @return mixed
+     */
+    public function index(WorkersDataTable $dataTable): mixed;
 
-    public function store(WorkerCreateRequest $workerCreateRequest);
+    /**
+     * @param WorkerCreateRequest $workerCreateRequest
+     * @return JsonResponse
+     */
+    public function store(WorkerCreateRequest $workerCreateRequest): JsonResponse;
 
-    public function show(int $workerId);
+    /**
+     * @param int $workerId
+     * @return JsonResponse
+     * @throws NotFoundException
+     */
+    public function show(int $workerId): JsonResponse;
 
-    public function update(WorkerUpdateRequest $workerUpdateRequest, int $workerId);
+    /**
+     * @param WorkerUpdateRequest $workerUpdateRequest
+     * @param int $workerId
+     * @return JsonResponse
+     * @throws NotFoundException
+     */
+    public function update(WorkerUpdateRequest $workerUpdateRequest, int $workerId): JsonResponse;
 
-    public function destroy(int $workerId);
+    /**
+     * @param int $workerId
+     * @return JsonResponse
+     * @throws NotFoundException
+     */
+    public function destroy(int $workerId): JsonResponse;
 }

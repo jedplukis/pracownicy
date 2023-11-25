@@ -3,13 +3,13 @@
 namespace App\Modules\Workers\Api\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Workers\Exceptions\NotFoundException;
 use App\Modules\Workers\Repositories\WorkerRepository;
 use App\Modules\Workers\Requests\WorkerUpdateRequest;
 use App\Modules\Workers\Requests\WorkerCreateRequest;
-use Exception;
-use Illuminate\Http\Request;
 use App\DataTables\WorkersDataTable;
-use Illuminate\Support\Facades\Log;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Yajra\DataTables\DataTables;
 
 class WorkersController extends Controller implements WorkersControllerInterface
@@ -18,19 +18,24 @@ class WorkersController extends Controller implements WorkersControllerInterface
     {
     }
 
-    public function index(WorkersDataTable $dataTable)
+    /**
+     * @param WorkersDataTable $dataTable
+     * @return JsonResponse|mixed
+     */
+    public function index(WorkersDataTable $dataTable): mixed
     {
         if (request()->ajax()) {
-            return DataTables::of($this->workerRepository->getAll())
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $btn =
-                        '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit-btn btn btn-primary btn-sm">Edit</a>
-                         <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="delete-btn btn btn-danger btn-sm">Delete</a>';
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+            try {
+                return DataTables::of($this->workerRepository->getAll())
+                    ->addIndexColumn()
+                    ->addColumn('action', function ($row) {
+                        return view('buttons.action', ['workerId' => $row->id]);
+                    })
+                    ->rawColumns(['action'])
+                    ->make();
+            } catch (Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
         }
 
         return $dataTable->render('pracownicy.index');
@@ -38,25 +43,41 @@ class WorkersController extends Controller implements WorkersControllerInterface
 
     /**
      * @param WorkerCreateRequest $workerCreateRequest
-     * @return array
+     * @return JsonResponse
      */
-    public function store(WorkerCreateRequest $workerCreateRequest): array
+    public function store(WorkerCreateRequest $workerCreateRequest): JsonResponse
     {
-        return ['message' => 'success', 'record' => $this->workerRepository->create($workerCreateRequest->validated())];
+        return response()->json(['message' => 'success', 'record' => $this->workerRepository->create($workerCreateRequest->validated())]);
     }
 
-    public function show(int $workerId)
+    /**
+     * @param int $workerId
+     * @return JsonResponse
+     * @throws NotFoundException
+     */
+    public function show(int $workerId): JsonResponse
     {
-        return ['message' => 'success', 'record' => $this->workerRepository->findOrFail($workerId)];
+        return response()->json(['message' => 'success', 'record' => $this->workerRepository->find($workerId)]);
     }
 
-    public function update(WorkerUpdateRequest $workerUpdateRequest, int $workerId)
+    /**
+     * @param WorkerUpdateRequest $workerUpdateRequest
+     * @param int $workerId
+     * @return JsonResponse
+     * @throws NotFoundException
+     */
+    public function update(WorkerUpdateRequest $workerUpdateRequest, int $workerId): JsonResponse
     {
-        return ['record' => $this->workerRepository->update($workerId, $workerUpdateRequest->validated())];
+        return response()->json(['record' => $this->workerRepository->update($workerId, $workerUpdateRequest->validated())]);
     }
 
-    public function destroy(int $workerId)
+    /**
+     * @param int $workerId
+     * @return JsonResponse
+     * @throws NotFoundException
+     */
+    public function destroy(int $workerId): JsonResponse
     {
-        return ['message' => $this->workerRepository->delete($workerId) ? 'success': 'failure'];
+        return response()->json(['message' => $this->workerRepository->delete($workerId) ? 'success': 'failure']);
     }
 }

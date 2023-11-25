@@ -43,11 +43,11 @@
                     <p class="text-danger error-message" id="firma-error"></p>
 
                     <label for="telefon_1">Telefon:</label>
-                    <input type="string" id="telefon_1" name="telefon_1" required>
+                    <input type="text" id="telefon_1" name="telefon_1" required>
                     <p class="text-danger error-message" id="telefon_1-error"></p>
 
                     <label for="telefon_2">Drugi Telefon:</label>
-                    <input type="string" id="telefon_2" name="telefon_2">
+                    <input type="text" id="telefon_2" name="telefon_2">
                     <p class="text-danger error-message" id="telefon_2-error"></p>
 
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Modules\Workers\Exceptions\BaseException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -25,6 +26,10 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (BaseException $e, $request) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
         });
     }
 }

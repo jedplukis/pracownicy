@@ -11,11 +11,10 @@ class Worker extends Model
     use HasFactory;
     use SoftDeletes;
 
+    /**
+     * @var array
+     */
     protected $fillable = [
       'email', 'imie', 'nazwisko', 'telefon_1', 'telefon_2', 'dieta', 'firma'
-    ];
-
-    public $sortable = [
-        'email', 'imie', 'nazwisko', 'firma'
     ];
 }

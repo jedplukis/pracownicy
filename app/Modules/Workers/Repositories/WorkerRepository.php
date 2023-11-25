@@ -2,11 +2,11 @@
 
 namespace App\Modules\Workers\Repositories;
 
+use App\Modules\Workers\Exceptions\NotFoundException;
 use App\Modules\Workers\Models\Worker;
 use Illuminate\Database\Eloquent\Collection;
-use Symfony\Component\CssSelector\Exception\InternalErrorException;
 
-class WorkerRepository
+class WorkerRepository implements WorkerRepositoryInterface
 {
     public function __construct(protected Worker $worker)
     {
@@ -33,33 +33,42 @@ class WorkerRepository
      * @param int $workerId
      * @param array $validated
      * @return Worker
+     * @throws NotFoundException
      */
     public function update(int $workerId, array $validated): Worker
     {
-        $worker = $this->findOrFail($workerId);
+        $worker = $this->find($workerId);
 
         $worker->update($validated);
 
-        return $this->findOrFail($workerId);
+        return $this->find($workerId);
     }
 
     /**
      * @param int $workerId
      * @return bool
+     * @throws NotFoundException
      */
     public function delete(int $workerId): bool
     {
-        $worker = $this->worker->findOrFail($workerId);
+        $worker = $this->find($workerId);
 
         return $worker->delete();
     }
 
     /**
      * @param int $workerId
-     * @return Worker
+     * @return ?Worker
+     * @throws NotFoundException
      */
-    public function findOrFail(int $workerId): Worker
+    public function find(int $workerId): ?Worker
     {
-        return $this->worker->findOrFail($workerId);
+        $record = $this->worker->find($workerId);
+
+        if ($record === null) {
+            throw NotFoundException::message();
+        }
+
+        return $record;
     }
 }
