@@ -24,7 +24,7 @@ $(document).on('click', '.edit-btn', function() {
         success: function(response) {
 
             // Populate modal fields with clicked record
-            populateForm(response.record);
+            populateForm(response.data);
 
             // Show the create/update modal
             $('#createModal').modal('show');
@@ -51,15 +51,15 @@ function resetForm() {
     createForm[0].reset();
 }
 
-function populateForm(record) {
-    $('#imie').val(record.imie);
-    $('#id').val(record.id);
-    $('#nazwisko').val(record.nazwisko);
-    $('#email').val(record.email);
-    $('#dieta').val(record.dieta);
-    $('#firma').val(record.firma);
-    $('#telefon_1').val(record.telefon_1);
-    $('#telefon_2').val(record.telefon_2);
+function populateForm(worker) {
+    $('#imie').val(worker.imie);
+    $('#id').val(worker.id);
+    $('#nazwisko').val(worker.nazwisko);
+    $('#email').val(worker.email);
+    $('#dieta').val(worker.dieta);
+    $('#firma').val(worker.firma);
+    $('#telefon_1').val(worker.telefon_1);
+    $('#telefon_2').val(worker.telefon_2);
 }
 
 function handleSuccess() {

@@ -6,6 +6,7 @@ use App\DataTables\WorkersDataTable;
 use App\Modules\Workers\Exceptions\NotFoundException;
 use App\Modules\Workers\Requests\WorkerCreateRequest;
 use App\Modules\Workers\Requests\WorkerUpdateRequest;
+use App\Modules\Workers\Resources\WorkerResource;
 use Illuminate\Http\JsonResponse;
 
 interface WorkersControllerInterface
@@ -18,24 +19,24 @@ interface WorkersControllerInterface
 
     /**
      * @param WorkerCreateRequest $workerCreateRequest
-     * @return JsonResponse
+     * @return WorkerResource
      */
-    public function store(WorkerCreateRequest $workerCreateRequest): JsonResponse;
+    public function store(WorkerCreateRequest $workerCreateRequest): WorkerResource;
 
     /**
      * @param int $workerId
-     * @return JsonResponse
+     * @return WorkerResource
      * @throws NotFoundException
      */
-    public function show(int $workerId): JsonResponse;
+    public function show(int $workerId): WorkerResource;
 
     /**
      * @param WorkerUpdateRequest $workerUpdateRequest
      * @param int $workerId
-     * @return JsonResponse
+     * @return WorkerResource
      * @throws NotFoundException
      */
-    public function update(WorkerUpdateRequest $workerUpdateRequest, int $workerId): JsonResponse;
+    public function update(WorkerUpdateRequest $workerUpdateRequest, int $workerId): WorkerResource;
 
     /**
      * @param int $workerId
